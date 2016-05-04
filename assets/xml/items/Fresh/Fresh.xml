@@ -68098,3 +68098,33 @@
 		<offer>Add 3 for &#xA3;6</offer>
 		<category>Groceries &gt; Fresh &gt; Cheese &gt; Grated &amp; Sliced Cheese &gt; Sliced Cheese</category>
 	</product>
+<?xml version="1.0"?>
+<product>
+		<productId>564623</productId>
+		<productName>Easy to Cook beef burgers, mustard &amp; Cheddar melt - 367g</productName>
+		<productImage>http://images.waitrose.com/images/products/11/LN_564623_BP_11.jpg</productImage>
+		<productUrl>http://www.waitrose.com/shop/ProductView-10317-10001-181403-Easy+to+Cook+beef+burgers%2C+mustard+%26+Cheddar+melt</productUrl>
+		<price>3.99</price>
+		<offer>Add 3 for &#xA3;10</offer>
+		<category>Groceries &gt; Fresh &gt; Chicken &amp; Meat &gt; Easy to Cook</category>
+	</product>
+<?xml version="1.0"?>
+<product>
+		<productId>564623</productId>
+		<productName>Easy to Cook beef burgers, mustard &amp; Cheddar melt - 367g</productName>
+		<productImage>http://images.waitrose.com/images/products/11/LN_564623_BP_11.jpg</productImage>
+		<productUrl>http://www.waitrose.com/shop/ProductView-10317-10001-181403-Easy+to+Cook+beef+burgers%2C+mustard+%26+Cheddar+melt</productUrl>
+		<price>3.99</price>
+		<offer>Add 3 for &#xA3;10</offer>
+		<category>Groceries &gt; Fresh &gt; Chicken &amp; Meat &gt; Easy to Cook</category>
+	</product>
+<?xml version="1.0"?>
+<product>
+		<productId>564623</productId>
+		<productName>Easy to Cook beef burgers, mustard &amp; Cheddar melt - 367g</productName>
+		<productImage>http://images.waitrose.com/images/products/11/LN_564623_BP_11.jpg</productImage>
+		<productUrl>http://www.waitrose.com/shop/ProductView-10317-10001-181403-Easy+to+Cook+beef+burgers%2C+mustard+%26+Cheddar+melt</productUrl>
+		<price>3.99</price>
+		<offer>Add 3 for &#xA3;10</offer>
+		<category>Groceries &gt; Fresh &gt; Chicken &amp; Meat &gt; Easy to Cook</category>
+	</product>
