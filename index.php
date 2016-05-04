@@ -1,6 +1,6 @@
 <?php
   // Downloading file from URL
-  $groceryStore = simplexml_load_file("waitrose.xml");
+  $groceryStore = simplexml_load_file("http://cdn.flashtalking.com/temp/charlie/feedstest/waitrose.xml");
   // Loop Through all products in the grocery store
   foreach ($groceryStore->product as $product) {
     // Product attributes
@@ -11,77 +11,81 @@
     $price = $product->price;
     $offer = $product->offer;
     $category = $product->category;
-    // Product rendered as an array
-    $array = array('id'=>$id,'name'=>$name,'image'=>$image,'url'=>$url,'price'=>$price,'offer'=>$offer,'category'=>$category);
     // Product rendered in JSON
     $productJSON = json_encode($product);
     // Product rendered in XML
-    $productXML = $product->asXml();
+    $productXML = $product->asXML();
     // separate categories by array
     $sub_categories = explode(" > ", $category);
     // For every sub-category
     for ($i=1;$i<count($sub_categories);$i++) {
       // Assign sub-category index
       $subCategoryIndex = $sub_categories[$i];
+      // Assign $jsonFolder
+      $jsonFolder = str_replace(" ", "", "assets/json/items/" . str_replace(" > ", "/", $sub_categories[1]) . "/");
       // Assign $jsonFile with '_' replace whitespace.
-      $jsonFile = "assets/json/" . str_replace(" ", "_",$subCategoryIndex) . ".json";
+      $jsonFile = $jsonFolder . str_replace(" ", "",$sub_categories[1]) . ".json";
+      // Assign $xmlFolder
+      $xmlFolder = str_replace(" ", "", "assets/xml/items/" . str_replace(" > ", "/", $sub_categories[1]) . "/");
       // Assign $xmlFile
-      $xmlFile = "assets/xml/" . str_replace(" ", "_",$subCategoryIndex) . ".xml";
-      echo "------JSON Version----- \r\n";
-      echo "\r\n";
-      // If a sub-category JSON does not exists
-      if (!file_exists($jsonFile)) {
-        // Create sub-category JSON using createCategoryJSON in array() format.
-        createCategoryJSON($jsonFile);
-      }
+      $xmlFile = $xmlFolder . str_replace(" ", "",$sub_categories[1]) . ".xml";
+      // If no sub-category folder
+      if (!file_exists($jsonFolder)) {
+        // Create sub-category JSON using createCategoryFolderJSON().
+        createCategoryFolderJSON($jsonFolder);
+      };
+      // Insert Product into CategoryFolderJSON
       insertProductJSON($productJSON, $jsonFile);
+      // If no sub-category folder
+      if (!file_exists($xmlFolder)) {
+        // Create sub-category XML using createCategoryFolderXML()
+        createCategoryFolderXML($xmlFolder);
+      };
+      insertProductXML($productXML, $xmlFile);
     }
   };
 
-  // createCategoryJSON
-  function createCategoryJSON($jsonFile) {
-    // Open file stream for $jsonFile (assets/json/{{$categoryIndex}}.json)
-    $fp = fopen($jsonFile, 'w');
-    echo "Creating json file for " . $jsonFile . "\r\n";
-    // New JSON for sub-category
-    fwrite($fp, " ");
-    // Closing file stream
-    fclose($fp);
+echo "All Objects imported into JSON and XML sub-categories. \r\n";
+
+  // createCategoryFolderJSON
+  function createCategoryFolderJSON($jsonFolder) {
+    if (!file_exists($jsonFolder)) {
+      echo "Creating json folder: " . $jsonFolder . "\r\n";
+      mkdir($jsonFolder, 0777, true);
+    }
   };
-  // Insert Product into JSON using insertProductJSON()
+
+  // Insert Product into *.json using insertProductJSON()
   function insertProductJSON($productJSON, $jsonFile) {
+    echo "------JSON Version----- \r\n";
+    echo "\r\n";
     // open file stream for $jsonFile to input product information.
-    $fp = fopen($jsonFile, "w");
+    $fp = fopen($jsonFile, "a");
     // New JSON product
-    echo "Entering in Product ID#:" . JSON_decode($productJSON)->productId . "into " . JSON_decode($productJSON)->category . "\r\n";
+    echo "Entering in Product ID#:" . json_decode($productJSON)->productId . " into " . $jsonFile . "\r\n";
     fwrite($fp, $productJSON);
     // Closing file stream
     fclose($fp);
   };
-  echo "STOP 1 time \r\n"; die;
+
+  // createCategoryFolderXML
+  function createCategoryFolderXML($xmlFolder) {
+    if (!file_exists($xmlFolder)) {
+      echo "Creating XML folder: " . $xmlFolder . "\r\n";
+      mkdir($xmlFolder, 0777, true);
+    }
+  };
+  // Insert Product into *.xml using insertProductXML()
+  function insertProductXML($productXML, $xmlFile) {
+    echo "------XML Version----- \r\n";
+    echo "\r\n";
+    $item = simplexml_load_string($productXML);
+    // open file stream for $jsonFile to input product information.
+    $fp = fopen($xmlFile, "a");
+    // New JSON product
+    echo "Entering in Product ID#:" . $item->productId . " into " . $xmlFile . "\r\n";
+    fwrite($fp, $item->asXml());
+    // Closing file stream
+    fclose($fp);
+  };
 ?>
-
-
-
-// function createCategoryFolderXML($array, $categoryIndex) {
-//   echo "Creating xml file for " . $categoryIndex . "\r\n";
-//   $header = header("Content-type: text/xml");
-//   if (!isset($header)) {
-//
-//   }
-  //   echo $header;
-//   $product->asXml("assets/xml/" . $sub_category[$i] . '.xml');
-//   }
-
-
-// // function insertProductXML($array, $categoryIndex) {
-//
-// };
-
-// echo "------XML Version----- \r\n";
-// echo $xml . "\r\n";
-// echo "\r\n";
-// if (!isset($categoryIndex)) {
-//   createCategoryXML($categoryIndex, $array);
-// };
-// insertProductXML($array, $category);

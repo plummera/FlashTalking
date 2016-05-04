@@ -1,0 +1,11 @@
+{
+    "name": "flashtalking/flashtalker",
+    "description": "Demo",
+    "authors": [
+        {
+            "name": "Anthony Plummer",
+            "email": "aplummer@psda.com"
+        }
+    ],
+    "require": {}
+}
